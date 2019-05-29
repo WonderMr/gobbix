@@ -71,46 +71,27 @@ func check_1c_database_availability(config_line string,bot_send string){
      matches                        :=  re_1c_check_base.FindAllStringSubmatch(clean_quotes(config_line),-1)
      if(len(matches)                ==  1){
          c1_conn_str                :=  matches[0][1]
-         log_it("Database = "+c1_conn_str)
          c1_delay,_                 :=  time.ParseDuration(matches[0][2])
-         log_it("Period = "+matches[0][2])
          c1_send_to                 :=  matches[0][3]
-         log_it("Notify chat = "+c1_send_to)
-         var c1 *ole.IDispatch
-         var com *ole.IUnknown
-         c1                         =   nil
-         com                        =   nil
+         log_it("Database = "+c1_conn_str+"; Period = "+matches[0][2]+"; Notify chat = "+c1_send_to)
          url                        :=  bot_send+c1_send_to+"&text="+url.QueryEscape("database "+c1_conn_str+" is not available")
          for {
              log_it("checking "+c1_conn_str)
              Block{
                  Try: func() {
                      ole.CoInitialize(0)
-                     com, _         =   oleutil.CreateObject("v83c.Application")
-                     c1, _          =   com.QueryInterface(ole.IID_IDispatch)
-                     c2             :=  oleutil.MustCallMethod(c1, "Connect", c1_conn_str)
-                     if(c2          !=  nil) {
-                         //time.Sleep(5 * time.Second)
-                         //ole.CoInitialize(0)
-                         c3         :=  oleutil.MustCallMethod(c1,"Exit",false)
-                         if(c3      !=  nil) {
-                             log_it("all ok")
-                         }else{
-                             log_it("client wasnt closed")
-                         }
-                     }else{
-                         ret,ret2   :=  client.Get(url)
-                         fmt.Printf("Caught %v\n", ret, ret2)
-                     }
+                     com, _         :=  oleutil.CreateObject("V83.COMConnector")
+                     c1, _          :=  com.QueryInterface(ole.IID_IDispatch)
+                     oleutil.MustCallMethod(c1, "Connect", c1_conn_str).ToIDispatch()
+                     log_it("Available " +c1_conn_str)
                  },
                  Catch: func(e Exception) {
-                     fmt.Printf("Caught %v\n", e)
+                     log_it("UnAvailable "+c1_conn_str)
+                     ret, ret2      :=  client.Get(url)
+                     fmt.Printf("Caught1 %v\n", ret)
+                     fmt.Printf("Caught2 %v\n", ret2)
                  },
                  Finally: func() {
-                     c1.Release()
-                     c1             =   nil
-                     com.Release()
-                     com            =   nil
                      ole.CoUninitialize()
                  },
              }.Do()
