@@ -1,18 +1,17 @@
  package main
 //----------------------------------------------------------------------------------------------------------------------
-import (
-    "fmt"
-    "io/ioutil"
-    "log"
-    "net/http"
-    "net/url"
-    "os"
-    "regexp"
-    "strings"
-    ole "github.com/go-ole/go-ole"
-    "github.com/go-ole/go-ole/oleutil"
-    "time"
-)
+ import (
+     "github.com/go-ole/go-ole"
+     "github.com/go-ole/go-ole/oleutil"
+     "io/ioutil"
+     "log"
+     "net/http"
+     "net/url"
+     "os"
+     "regexp"
+     "strings"
+     "time"
+ )
 //----------------------------------------------------------------------------------------------------------------------
 var (
     re_1c_check_base                =   regexp.MustCompile("check\\savailability\\s(.*)\\severy\\s(.*)\\snotify\\s(.*)")
@@ -68,37 +67,49 @@ func clean_quotes(cq_str string)string{
 }
 //----------------------------------------------------------------------------------------------------------------------
 func check_1c_database_availability(config_line string,bot_send string){
-     matches                        :=  re_1c_check_base.FindAllStringSubmatch(clean_quotes(config_line),-1)
-     if(len(matches)                ==  1){
-         c1_conn_str                :=  matches[0][1]
-         c1_delay,_                 :=  time.ParseDuration(matches[0][2])
-         c1_send_to                 :=  matches[0][3]
-         log_it("Database = "+c1_conn_str+"; Period = "+matches[0][2]+"; Notify chat = "+c1_send_to)
-         url                        :=  bot_send+c1_send_to+"&text="+url.QueryEscape("database "+c1_conn_str+" is not available")
-         for {
-             log_it("checking "+c1_conn_str)
-             Block{
-                 Try: func() {
-                     ole.CoInitialize(0)
-                     com, _         :=  oleutil.CreateObject("V83.COMConnector")
-                     c1, _          :=  com.QueryInterface(ole.IID_IDispatch)
-                     oleutil.MustCallMethod(c1, "Connect", c1_conn_str).ToIDispatch()
-                     log_it("Available " +c1_conn_str)
-                 },
-                 Catch: func(e Exception) {
-                     log_it("UnAvailable "+c1_conn_str)
-                     ret, ret2      :=  client.Get(url)
-                     fmt.Printf("Caught1 %v\n", ret)
-                     fmt.Printf("Caught2 %v\n", ret2)
-                 },
-                 Finally: func() {
-                     ole.CoUninitialize()
-                 },
-             }.Do()
-             time.Sleep(c1_delay)
-         }
-     }
- }
+    c1_available                    :=  false
+    matches                         :=  re_1c_check_base.FindAllStringSubmatch(clean_quotes(config_line),-1)
+    if(len(matches)                 ==  1){
+        c1_conn_str                 :=  matches[0][1]
+        c1_delay,_                  :=  time.ParseDuration(matches[0][2])
+        c1_send_to                  :=  matches[0][3]
+        log_it("Database = "+c1_conn_str+"; Period = "+matches[0][2]+"; Notify chat = "+c1_send_to)
+        url_not_available           :=  bot_send+c1_send_to+"&text="+url.QueryEscape("database "+c1_conn_str+" is NOT available")
+        url_available               :=  bot_send+c1_send_to+"&text="+url.QueryEscape("database "+c1_conn_str+" available")
+        for {
+            log_it("checking "+c1_conn_str)
+            Block{
+                Try: func() {
+                    ole.CoInitialize(0)
+                    com, _          :=  oleutil.CreateObject("V83.COMConnector")
+                    c1, _           :=  com.QueryInterface(ole.IID_IDispatch)
+                    oleutil.MustCallMethod(c1, "Connect", c1_conn_str).ToIDispatch()
+                    if(!c1_available){
+                        client.Get(url_available)
+                        //ret, ret2   := client.Get(url_available)
+                    }
+                    c1_available    =   true
+                    log_it("Available " +c1_conn_str)
+                },
+                Catch: func(e Exception) {
+                    log_it("UnAvailable "+c1_conn_str)
+                    if(c1_available) {
+                        client.Get(url_not_available)
+                        //ret, ret2   := client.Get(url_not_available)
+                        //fmt.Printf("Caught1 %v\n", ret)
+                        //fmt.Printf("Caught2 %v\n", ret2)
+                        c1_available=   false
+                    }
+                },
+                Finally: func() {
+                    time.Sleep(10*time.Second)
+                    ole.CoUninitialize()
+                },
+            }.Do()
+            time.Sleep(c1_delay)
+        }
+    }
+}
 //----------------------------------------------------------------------------------------------------------------------
 func main() {
 	conf_file                       :=  strings.Replace(os.Args[0], ".exe", ".config", 1)
