@@ -74,16 +74,17 @@ func check_1c_database_availability(config_line string,bot_send string){
         c1_delay,_                  :=  time.ParseDuration(matches[0][2])
         c1_send_to                  :=  matches[0][3]
         log_it("Database = "+c1_conn_str+"; Period = "+matches[0][2]+"; Notify chat = "+c1_send_to)
-        url_not_available           :=  bot_send+c1_send_to+"&text="+url.QueryEscape("database "+c1_conn_str+" is NOT available")
-        url_available               :=  bot_send+c1_send_to+"&text="+url.QueryEscape("database "+c1_conn_str+" available")
+        url_not_available           :=  bot_send+c1_send_to+"&text="+url.QueryEscape("\xF0\x9F\x98\xAD database \xE2\x97\x80"+c1_conn_str+"\xE2\x96\xB6 is NOT available \xF0\x9F\x98\xB2 \xE2\x9A\xA1 \xE2\x9A\xA1 \xE2\x9A\xA1")
+        url_available               :=  bot_send+c1_send_to+"&text="+url.QueryEscape("\xF0\x9F\x98\xB8 database \xE2\x97\x80"+c1_conn_str+"\xE2\x96\xB6 available \xF0\x9F\x99\x8F \xF0\x9F\x92\xAA \xF0\x9F\x92\xAA \xF0\x9F\x92\xAA")
         for {
             log_it("checking "+c1_conn_str)
             Block{
                 Try: func() {
                     ole.CoInitialize(0)
-                    com, _          :=  oleutil.CreateObject("V83.COMConnector")
+                    com, _          :=  oleutil.CreateObject("V83c.Application")
                     c1, _           :=  com.QueryInterface(ole.IID_IDispatch)
                     oleutil.MustCallMethod(c1, "Connect", c1_conn_str).ToIDispatch()
+                    oleutil.MustCallMethod(c1, "Exit", false).ToIDispatch()
                     if(!c1_available){
                         client.Get(url_available)
                         //ret, ret2   := client.Get(url_available)
