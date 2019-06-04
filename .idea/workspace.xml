@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70ca88fb-2d9a-44bf-9133-8fc02823d203" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/gobbix.conf" beforeDir="false" afterPath="$PROJECT_DIR$/gobbix.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gobbix.go" beforeDir="false" afterPath="$PROJECT_DIR$/gobbix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gobbix.ignore" beforeDir="false" afterPath="$PROJECT_DIR$/gobbix.ignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +17,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gobbix.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="266" column="33" selection-start-line="266" selection-start-column="33" selection-end-line="266" selection-end-column="33" />
+            <state relative-caret-position="494">
+              <caret line="161" selection-start-line="161" selection-end-line="161" />
               <folding>
                 <element signature="e#136#272#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://C:/Go/src/runtime/panic.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="692" column="16" lean-forward="true" selection-start-line="692" selection-start-column="16" selection-end-line="692" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -77,15 +88,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="274">
               <caret line="356" column="32" selection-start-line="356" selection-start-column="32" selection-end-line="356" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/go/src/github.com/go-ole/go-ole/oleutil/oleutil.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -152,7 +154,7 @@
     <option name="x" value="1912" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1054" />
+    <option name="height" value="1174" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -264,8 +266,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1054" extended-state="6" />
-    <editor active="true" />
+    <frame x="1912" y="-8" width="1936" height="1174" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11727079" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -273,14 +274,14 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49733475" weight="0.32790446" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6993604" weight="0.40933767" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6993604" weight="0.4092219" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4989339" weight="0.32899022" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49840087" weight="0.32899022" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.48827294" visible="true" weight="0.32899022" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.48827294" visible="true" weight="0.32853025" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.30063966" side_tool="true" weight="0.40933767" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -304,6 +305,11 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>run_1c</expression-string>
+        <language-id>go</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>ii_scanner.Text()</expression-string>
         <language-id>go</language-id>
@@ -344,11 +350,6 @@
         <language-id>go</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>strings(run_1c.Process.Pid)</expression-string>
-        <language-id>go</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
@@ -359,7 +360,6 @@
     <entry file="file://C:/Go/src/time/sleep.go" />
     <entry file="file://C:/Go/src/unsafe/unsafe.go" />
     <entry file="file://C:/Go/src/runtime/asm_amd64.s" />
-    <entry file="file://C:/Go/src/runtime/panic.go" />
     <entry file="file://C:/Go/src/os/getwd.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -467,10 +467,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/Go/src/runtime/panic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="692" column="16" lean-forward="true" selection-start-line="692" selection-start-column="16" selection-end-line="692" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/gobbix.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="266" column="33" selection-start-line="266" selection-start-column="33" selection-end-line="266" selection-end-column="33" />
+        <state relative-caret-position="494">
+          <caret line="161" selection-start-line="161" selection-end-line="161" />
           <folding>
             <element signature="e#136#272#0" expanded="true" />
           </folding>

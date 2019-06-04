@@ -131,12 +131,6 @@ func check_1c_database_availability(config_line string){                        
         c1_conn_str                 :=  matches[0][1]                                                                   //строка подключения
         c1_delay,_                  :=  time.ParseDuration(matches[0][2])                                               //интервал опроса
         c1_send_to                  :=  matches[0][3]                                                                   //чат для отправки сообщений
-        run_1c                      :=  exec.Command(c1_client,
-                                            "ENTERPRISE",
-                                            "/IBConnectionString"+c1_conn_str,
-                                            "/DisableStartupMessages",
-                                            "/DisableStartupDialogs",
-                                            `/execute`+exit_epf)                                                        //команда запуска 1С
         c1_exe_name                 :=  re_filename.FindStringSubmatch(c1_client)[0]                                    //имя исполняемого файла 1С
         log_it("Database = "+c1_conn_str+"; Period = "+matches[0][2]+"; Notify chat = "+c1_send_to)
         url_not_available           :=  bot_send_url + c1_send_to + "&text=" +
@@ -151,6 +145,12 @@ func check_1c_database_availability(config_line string){                        
                                                             "\xF0\x9F\x92\xAA \xF0\x9F\x92\xAA \xF0\x9F\x92\xAA")       //отправка сообщения о доступности базы
         for {
             log_it("checking "+c1_conn_str)
+            run_1c                  :=  exec.Command(c1_client,
+                                        "ENTERPRISE",
+                                            "/IBConnectionString"+c1_conn_str,
+                                            "/DisableStartupMessages",
+                                            "/DisableStartupDialogs",
+                                            `/execute`+exit_epf)                                                        //команда запуска 1С
             c1da_result             :=  run_1c.Start()                                                                  //запускаю 1С
             if(c1da_result          !=  nil){
                 log_it("process start error")
