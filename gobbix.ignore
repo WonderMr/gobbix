@@ -1,0 +1,5 @@
+ ;Всё, что здесь есть, будет игнорироваться в списке EXCP
+Ошибка совместного доступа к файлу
+Запрещено использование окон. Передан ключ DisableStartupDialogs.
+The process cannot access the file because it is being used by another process. 
+Файл не обнаружен

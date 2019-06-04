@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70ca88fb-2d9a-44bf-9133-8fc02823d203" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gobbix.conf" beforeDir="false" afterPath="$PROJECT_DIR$/gobbix.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gobbix.go" beforeDir="false" afterPath="$PROJECT_DIR$/gobbix.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,10 +15,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gobbix.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="121" column="85" selection-start-line="121" selection-start-column="85" selection-end-line="121" selection-end-column="85" />
+            <state relative-caret-position="357">
+              <caret line="266" column="33" selection-start-line="266" selection-start-column="33" selection-end-line="266" selection-end-column="33" />
               <folding>
-                <element signature="n#!!block;n#main#1" />
+                <element signature="e#136#272#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="24" selection-start-line="24" selection-end-line="38" selection-end-column="1" />
+              <folding>
+                <element signature="e#14#52#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -72,15 +82,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/go/src/github.com/go-ole/go-ole/iunknown.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="38" column="63" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="63" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/go/src/github.com/go-ole/go-ole/oleutil/oleutil.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
@@ -124,10 +125,15 @@
       <find>IUnknown</find>
       <find>face</find>
       <find>MatchString</find>
-      <find>for</find>
       <find>tzh_dir</find>
       <find>log_it</find>
       <find>bot_send</find>
+      <find>find</find>
+      <find>cl_is_exception</find>
+      <find>conf_file</find>
+      <find>read</find>
+      <find>for</find>
+      <find>in_ignore</find>
     </findStrings>
   </component>
   <component name="GOROOT" path="C:\Go" />
@@ -137,6 +143,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/test.go" />
         <option value="$PROJECT_DIR$/gobbix.go" />
       </list>
     </option>
@@ -213,16 +220,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build gobbix.go@home x86">
-    <configuration name="go build gobbix.go@home x86" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="gobbix" />
-      <working_directory value="C:\Repos\gobbix\" />
-      <go_parameters value="-i" />
-      <kind value="FILE" />
-      <filePath value="C:\Repos\gobbix\gobbix.go" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Go Build.go build gobbix.go@home">
     <configuration name="go build gobbix.go@home" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gobbix" />
       <working_directory value="C:\Repos\gobbix\" />
@@ -241,10 +239,19 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="go test" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gobbix" />
+      <working_directory value="C:\Repos\gobbix\" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <filePath value="C:\Repos\gobbix\test.go" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Go Build.go build gobbix.go@notebook" />
       <item itemvalue="Go Build.go build gobbix.go@home" />
-      <item itemvalue="Go Build.go build gobbix.go@home x86" />
+      <item itemvalue="Go Build.go test" />
     </list>
   </component>
   <component name="TodoView">
@@ -260,21 +267,21 @@
     <frame x="1912" y="-8" width="1936" height="1054" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23134328" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11727079" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49733475" weight="0.32790446" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4632196" weight="0.40933767" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6993604" weight="0.40933767" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4989339" weight="0.32899022" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4989339" weight="0.32899022" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49093816" visible="true" weight="0.32899022" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5090618" side_tool="true" visible="true" weight="0.32899022" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49840087" weight="0.32899022" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.48827294" visible="true" weight="0.32899022" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.30063966" side_tool="true" weight="0.40933767" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -298,47 +305,47 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>ii_scanner.Text()</expression-string>
+        <language-id>go</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>123</expression-string>
+        <language-id>go</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>string(1322)</expression-string>
+        <language-id>go</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>string(111)</expression-string>
+        <language-id>go</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>string(2)</expression-string>
+        <language-id>go</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>string(1)</expression-string>
+        <language-id>go</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>string(c1_excp_cnt)</expression-string>
+        <language-id>go</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>string(run_1c.Process.Pid)</expression-string>
         <language-id>go</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
         <expression-string>strings(run_1c.Process.Pid)</expression-string>
-        <language-id>go</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sting(run_1c.Process.Pid)</expression-string>
-        <language-id>go</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>stings(run_1c.Process.Pid)</expression-string>
-        <language-id>go</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>srtings(run_1c.Process.Pid)</expression-string>
-        <language-id>go</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>run_1c.Process.Pid</expression-string>
-        <language-id>go</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>ret.isdone</expression-string>
-        <language-id>go</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>ret</expression-string>
-        <language-id>go</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>os.FindProcess(run_1c.Process.Pid)</expression-string>
         <language-id>go</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -408,13 +415,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/go/src/github.com/go-ole/go-ole/variables.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Go/src/os/exec/exec.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
@@ -450,12 +450,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/go/src/github.com/go-ole/go-ole/variables.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="24" selection-start-line="24" selection-end-line="38" selection-end-column="1" />
+          <folding>
+            <element signature="e#14#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/gobbix.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="121" column="85" selection-start-line="121" selection-start-column="85" selection-end-line="121" selection-end-column="85" />
+        <state relative-caret-position="357">
+          <caret line="266" column="33" selection-start-line="266" selection-start-column="33" selection-end-line="266" selection-end-column="33" />
           <folding>
-            <element signature="n#!!block;n#main#1" />
+            <element signature="e#136#272#0" expanded="true" />
           </folding>
         </state>
       </provider>
