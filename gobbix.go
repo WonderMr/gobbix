@@ -52,9 +52,10 @@ func in_ignore(ii_str string)bool{
 
     ii_scanner                      :=  bufio.NewScanner(ii_file)
     for ii_scanner.Scan() {
-        ii_line                     :=  strings.Trim(ii_scanner.Text()," ")
+        ii_line                     :=  ii_scanner.Text()
         ii_str                      =   strings.Trim(ii_str," ")
-        if(ii_line                  ==  ii_str){
+        ii_rexp                     :=  regexp.MustCompile(ii_line)
+        if(ii_rexp.MatchString(ii_str)){
             ii_ret                  =   true
             log_it("ignoring "+ii_str)
             break
@@ -188,7 +189,7 @@ func check_1c_database_availability(config_line string){                        
                     }
                     c1_excp_cnt     +=  1
                     c1_excp_txt     +=  "\r\n "+strconv.Itoa(c1_excp_cnt)+" : "+c1_err
-                    log_it("Exception detected:"+c1_err)
+                    log_it("Exception detected:"+c1_rec[0])
                 }
                 os.Remove(cl_file)                                                                                      //удаляю обработанный файл
             }
