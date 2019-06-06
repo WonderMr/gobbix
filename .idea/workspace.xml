@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="70ca88fb-2d9a-44bf-9133-8fc02823d203" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gobbix.conf" beforeDir="false" afterPath="$PROJECT_DIR$/gobbix.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gobbix.go" beforeDir="false" afterPath="$PROJECT_DIR$/gobbix.go" afterDir="false" />
-    </list>
+    <list default="true" id="70ca88fb-2d9a-44bf-9133-8fc02823d203" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gobbix.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="83" column="58" selection-start-line="83" selection-start-column="58" selection-end-line="83" selection-end-column="58" />
+            <state relative-caret-position="-1659">
+              <caret line="86" column="25" selection-start-line="86" selection-start-column="25" selection-end-line="86" selection-end-column="25" />
               <folding>
                 <element signature="e#136#332#0" expanded="true" />
                 <element signature="n#!!block;n#clean_quotes#0" />
@@ -271,12 +267,6 @@
           <line>183</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/gobbix.go</url>
-          <line>189</line>
-          <properties />
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -398,8 +388,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gobbix.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="83" column="58" selection-start-line="83" selection-start-column="58" selection-end-line="83" selection-end-column="58" />
+        <state relative-caret-position="-1659">
+          <caret line="86" column="25" selection-start-line="86" selection-start-column="25" selection-end-line="86" selection-end-column="25" />
           <folding>
             <element signature="e#136#332#0" expanded="true" />
             <element signature="n#!!block;n#clean_quotes#0" />
