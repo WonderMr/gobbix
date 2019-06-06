@@ -21,7 +21,8 @@ var (
     re_quotes                       =   regexp.MustCompile(`\'|\"|\r|\n`)                                           //очистка от кавычек и переносов строки
     re_str                          =   regexp.MustCompile("(?m)^(\\w+)?\\:(.+)$")                                  //разбор строки конфигурации на две части
     re_filename                     =   regexp.MustCompile(`[\\|\/]([^\\|\/]*)$`)                                   //получение имени любого файла (последняя часть из пути после слэшем или бэкслэшем), вместе с  / или \
-    re_excp                         =   regexp.MustCompile(`(?m),EXCP,.*Descr=.*\:(.*)`)                            //просто EXCP c хвостом Descr
+    //re_excp                         =   regexp.MustCompile(`(?m),EXCP,.*Descr=['|"]([\w\d\\\/\.\,\(\)\s\:\-А-Яа-яЁёЙй]*)['|"]$`)//просто EXCP c Descr
+    re_excp                         =   regexp.MustCompile(`(?m),EXCP,.*Descr=(.+)`)//просто EXCP c Descr
     transport                       =   &http.Transport{}                                                               //transport для вызова API telegram
     client                          =   &http.Client{                                                                   //client для вызова API telegram
         Transport                   :   transport,
@@ -125,15 +126,16 @@ func is_file(if_name string)bool{
     return is_ret
 }
 //----------------------------------------------------------------------------------------------------------------------
-func check_1c_database_availability(config_line string){                                                                //проверка доступности базы (строка конфигурации)
+func check_1c_database_availability(config_line string,c1_local_client string){                                         //проверка доступности базы (строка конфигурации)
     c1_available                    :=  true                                                                            //по умолчанию - база доступна
     matches                         :=  re_1c_check_base.FindAllStringSubmatch(clean_quotes(config_line),-1)        //разбираю строку подключения
     if(len(matches)                 ==  1){
         c1_conn_str                 :=  matches[0][1]                                                                   //строка подключения
         c1_delay,_                  :=  time.ParseDuration(matches[0][2])                                               //интервал опроса
         c1_send_to                  :=  matches[0][3]                                                                   //чат для отправки сообщений
+        c1_start_part               :=  c1_conn_str+" to "+c1_send_to+" "
         c1_exe_name                 :=  re_filename.FindStringSubmatch(c1_client)[0]                                    //имя исполняемого файла 1С
-        log_it("Database = "+c1_conn_str+"; Period = "+matches[0][2]+"; Notify chat = "+c1_send_to)
+        log_it(c1_start_part+"Database = "+c1_conn_str+"; Period = "+matches[0][2]+"; Notify chat = "+c1_send_to)
         url_not_available           :=  bot_send_url + c1_send_to + "&text=" +
                                         url.QueryEscape(    "\xF0\x9F\x98\xAD database " +
                                                             "\xE2\x97\x80"+c1_conn_str+"\xE2\x96\xB6 " +
@@ -145,8 +147,8 @@ func check_1c_database_availability(config_line string){                        
                                                             "available \xF0\x9F\x99\x8F "+
                                                             "\xF0\x9F\x92\xAA \xF0\x9F\x92\xAA \xF0\x9F\x92\xAA")       //отправка сообщения о доступности базы
         for {
-            log_it("checking "+c1_conn_str)
-            run_1c                  :=  exec.Command(c1_client,
+            log_it(c1_start_part+"checking "+c1_conn_str+" with "+c1_local_client)
+            run_1c                  :=  exec.Command(c1_local_client,
                                         "ENTERPRISE",
                                             "/IBConnectionString"+c1_conn_str,
                                             "/DisableStartupMessages",
@@ -154,14 +156,14 @@ func check_1c_database_availability(config_line string){                        
                                             `/execute`+exit_epf)                                                        //команда запуска 1С
             c1da_result             :=  run_1c.Start()                                                                  //запускаю 1С
             if(c1da_result          !=  nil){
-                log_it("process start error")
+                log_it(c1_start_part+"process start error")
             }
             ret,_                   :=  os.FindProcess(run_1c.Process.Pid);                                             //нахожу его PID
             c1_tzh_dir              :=  tzh_dir + strings.Replace(c1_exe_name,".exe","",-1) +
                                         "_" + fmt.Sprint(run_1c.Process.Pid)                                            //каталог с ТЖ
             ret.Wait()                                                                                                  //жду завершения процесса
-            log_it("process pid="+fmt.Sprint(run_1c.Process.Pid)+" ended"+c1_exe_name)
-            log_it("checking "+c1_tzh_dir)
+            log_it(c1_start_part+"process pid="+fmt.Sprint(run_1c.Process.Pid)+" ended"+c1_exe_name)
+            log_it(c1_start_part+"checking "+c1_tzh_dir)
             var cl_files []string
             err                     :=  filepath.Walk(c1_tzh_dir, func(path string, info os.FileInfo, err error) error {//формирую списко файлов ТЖ
                 cl_files            =   append(cl_files, path)
@@ -176,20 +178,21 @@ func check_1c_database_availability(config_line string){                        
                 if(!is_file(cl_file)){                                                                                  //и только файлы!
                     continue
                 }
-                log_it("processing "+cl_file)
+                log_it(c1_start_part+"processing "+cl_file)
                 cl_b, err           :=  ioutil.ReadFile(cl_file)                                                        //читаю
                 if err              !=  nil {
-                    log_it(err.Error())
+                    log_it(c1_start_part+err.Error())
                 }
                 c1_compacted_recs   :=  reparce_1c_records(string(cl_b))
+                //log_it(c1_start_part+c1_compacted_recs)
                 for _, c1_rec       :=  range re_excp.FindAllStringSubmatch(c1_compacted_recs,-1) {
-                    c1_err          :=  clean_quotes(c1_rec[1])
+                    c1_err          :=  clean_quotes(c1_rec[0])
                     if(in_ignore(c1_err)){
                         continue
                     }
                     c1_excp_cnt     +=  1
                     c1_excp_txt     +=  "\r\n "+strconv.Itoa(c1_excp_cnt)+" : "+c1_err
-                    log_it("Exception detected:"+c1_rec[0])
+                    log_it(c1_start_part+"Exception detected:"+c1_rec[0])
                 }
                 os.Remove(cl_file)                                                                                      //удаляю обработанный файл
             }
@@ -298,7 +301,7 @@ func main() {
             if(re_1c_check_base.MatchString(value)){
                 check_logcfg_xml(c1_client)
                 log_it("processing rule "+value)
-                go check_1c_database_availability(value);
+                go check_1c_database_availability(value,c1_client);
             }
             break
         }
