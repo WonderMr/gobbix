@@ -1,5 +1,5 @@
- ;Всё, что здесь есть, будет игнорироваться в списке EXCP
-Ошибка совместного доступа к файлу
-Запрещено использование окон. Передан ключ DisableStartupDialogs.
-The process cannot access the file because it is being used by another process. 
-Файл не обнаружен   
+;Всё, что здесь есть, будет игнорироваться в списке EXCP. В виде регулярных выражений
+.*Запрещено использование окон\. Передан ключ DisableStartupDialogs.*
+.*The system cannot find the file specified.*
+.*vrs\-cache\\cache\.1CD.*
+.*Exception\=ProfileException.*
