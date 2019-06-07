@@ -68,7 +68,23 @@ func in_ignore(ii_str string)bool{
     }
     return ii_ret
 }
-
+//----------------------------------------------------------------------------------------------------------------------
+func clean_c1_excep(cce_string string)string{
+    var (
+        cce_guid                    =   regexp.MustCompile(`[\w\d]{8}\-[\w\d]{4}\-[\w\d]{4}\-[\w\d]{4}\-[\w\d]{12}\:`)
+        cce_cpp_no_file             =   regexp.MustCompile(`'[\w\\]+\.cpp\(\d+\)[\:|\,]`)
+        cce_cpp_file                =   regexp.MustCompile(`line=\d+\sfile=[\w\:\\]+\.cpp`)
+        cce_compact                 =   regexp.MustCompile(`\s{2,}`)
+        cce_trim                    =   regexp.MustCompile(`^\s+|\s+$`)
+        cce_ret                     =   ""
+    )
+    cce_ret                         =   cce_guid.ReplaceAllString(cce_string,"")
+    cce_ret                         =   cce_cpp_no_file.ReplaceAllString(cce_ret,"")
+    cce_ret                         =   cce_cpp_file.ReplaceAllString(cce_ret,"")
+    cce_ret                         =   cce_compact.ReplaceAllString(cce_ret," ")
+    cce_ret                         =   cce_trim.ReplaceAllString(cce_ret,"")
+    return cce_ret
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 func reparce_1c_records(r1r_in_strings string)string{
@@ -164,9 +180,9 @@ func check_1c_database_availability(config_line string,c1_local_client string){ 
             ret.Wait()                                                                                                  //жду завершения процесса
             log_it(c1_start_part+"process pid="+fmt.Sprint(run_1c.Process.Pid)+" ended"+c1_exe_name)
             log_it(c1_start_part+"checking "+c1_tzh_dir)
-            var cl_files []string
+            var c1_files []string
             err                     :=  filepath.Walk(c1_tzh_dir, func(path string, info os.FileInfo, err error) error {//формирую списко файлов ТЖ
-                cl_files            =   append(cl_files, path)
+                c1_files            =   append(c1_files, path)
                 return nil
             })
             if err                  !=  nil {
@@ -174,32 +190,45 @@ func check_1c_database_availability(config_line string,c1_local_client string){ 
             }
             c1_excp_txt             :=  ""
             c1_excp_cnt             :=  0
-            for _, cl_file          :=  range cl_files {                                                                //обойти все файлы ТЖ
-                if(!is_file(cl_file)){                                                                                  //и только файлы!
+            for _, c1_file          :=  range c1_files {                                                                //обойти все файлы ТЖ
+                if(!is_file(c1_file)){                                                                                  //и только файлы!
                     continue
                 }
-                log_it(c1_start_part+"processing "+cl_file)
-                cl_b, err           :=  ioutil.ReadFile(cl_file)                                                        //читаю
+                log_it(c1_start_part+"processing "+c1_file)
+                c1_b, err           :=  ioutil.ReadFile(c1_file)                                                        //читаю
                 if err              !=  nil {
                     log_it(c1_start_part+err.Error())
                 }
-                c1_compacted_recs   :=  reparce_1c_records(string(cl_b))
+                c1_compacted_recs   :=  reparce_1c_records(string(c1_b))
                 //log_it(c1_start_part+c1_compacted_recs)
+                var c1_errors     []string
                 for _, c1_rec       :=  range re_excp.FindAllStringSubmatch(c1_compacted_recs,-1) {
-                    c1_err          :=  clean_quotes(c1_rec[0])
-                    if(in_ignore(c1_err)){
+                    c1_err          :=  clean_quotes(clean_c1_excep(c1_rec[1]))
+                    c1_full_err    :=  clean_quotes(c1_rec[0])
+                    if(in_ignore(c1_full_err)){
                         continue
                     }
-                    c1_excp_cnt     +=  1
-                    c1_excp_txt     +=  "\r\n "+strconv.Itoa(c1_excp_cnt)+" : "+c1_err
+                    found           :=  false
+                    for _,c1_e      :=  range c1_errors{                                                                //не посылать дубли
+                        if c1_e     ==  c1_err{
+                            found   =   true
+                        }
+                    }
+                    if(!found) {
+                        c1_excp_cnt +=  1
+                        c1_excp_txt += "\r\n " + strconv.Itoa(c1_excp_cnt) + " : " + c1_err
+                        c1_errors   =   append(c1_errors,c1_err)
+                    }
                     log_it(c1_start_part+"Exception detected:"+c1_rec[0])
+                    log_it(c1_start_part+"cleaned = "+c1_err)
                 }
-                os.Remove(cl_file)                                                                                      //удаляю обработанный файл
+                os.Remove(c1_file)                                                                                      //удаляю обработанный файл
             }
             os.Remove(c1_tzh_dir)                                                                                       //удаляю обработанный каталог
             if(c1_excp_cnt>0){                                                                                          //если ошибки были
                 if(c1_available) {                                                                                      //и база была доступна
                     c1_available    =   false
+                    log_it(c1_start_part+"message to send"+c1_excp_txt)
                     client.Get(url_not_available+url.QueryEscape(c1_excp_txt))                                          //уведомляю
                 }
             }else{                                                                                                      //ошибок нет
